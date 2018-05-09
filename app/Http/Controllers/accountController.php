@@ -47,4 +47,35 @@ class accountController extends Controller
         else{ $result = []; }
         return $result;
     }
+    public function edit_user(Request $request,$id)
+    {
+        
+
+        try{
+            if($request->avatar)
+            {
+                contact_infoModel::where('user_id',$id)
+         
+                ->update(['contact_name'=>$request->name,'contact_phone'=>$request->phone,
+                'contact_website'=>$request->website,'contact_email_address'=>$request->email,'contact_language'=>$request->lang,
+                'contact_country'=>$request->address,'contact_avatar'=>$request->avatar]);
+                return "ok";
+            }
+            else
+            {
+                contact_infoModel::where('user_id',$id)
+         
+                ->update(['contact_name'=>$request->name,'contact_phone'=>$request->phone,
+                'contact_website'=>$request->website,'contact_email_address'=>$request->email,'contact_language'=>$request->lang,
+                'contact_country'=>$request->address]);
+                return "ok";
+            }
+         
+
+        }
+        catch(\Illuminate\Database\QueryException $ex){ 
+            return "error";
+        }
+        
+    }
 }
